@@ -17,6 +17,20 @@ public class Ator extends Pessoa {
         }
     }
 
+    protected static ArrayList<Ator>  cadastrarAtor(ArrayList<Ator> listagemAtores) {
+        System.out.println("Informe os dados do ator:");
+        System.out.print("Nome: ");
+        String nome = Imdb.receberStringTeclado();
+        System.out.print("Data de nascimento: ");
+        String dataNascimento = Imdb.receberStringTeclado();
+        System.out.print("País de origem: ");
+        String paisOrigem = Imdb.receberStringTeclado();
+        Ator ator = new Ator(nome, dataNascimento, paisOrigem);
+        listagemAtores.add(ator);
+
+        return listagemAtores;
+    }
+
     @Override
     public String toString() {
         return "Ator{} " + super.toString();

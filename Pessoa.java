@@ -54,12 +54,5 @@ public class Pessoa {
                 '}';
     }
 
-    public String toString2() {
-        return "Pessoa{" +
-                "nome='" + nome + '\'' +
-                ", dataNascimento='" + dataNascimento + '\'' +
-                ", paisOrigem='" + paisOrigem + '\'' +
-                ", filmes=" + filmes +
-                '}';
-    }
+
 }

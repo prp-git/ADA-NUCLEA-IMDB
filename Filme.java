@@ -4,13 +4,20 @@ import java.util.List;
 public class Filme {
     private String titulo;
     private String ano;
-    private double orcamento;
-    private Diretor diretor;
+    private static double orcamento;
+    protected Diretor diretor;
     private String descricao;
 
-    protected ArrayList<Ator> elenco = new ArrayList<>();
+    protected static ArrayList<Ator> elenco = new ArrayList<>();
 
     public Filme() {
+    }
+
+    public Filme(String titulo, String ano, double orcamento, String descricao) {
+        this.titulo = titulo;
+        this.ano = ano;
+        this.orcamento = orcamento;
+        this.descricao = descricao;
     }
 
     public Filme(String titulo, Diretor diretor, String ano, double orcamento, String descricao) {
@@ -19,7 +26,6 @@ public class Filme {
         this.ano = ano;
         this.orcamento = orcamento;
         this.descricao = descricao;
-//        diretor.AdicionarFilme(this);
     }
 
 
@@ -68,17 +74,25 @@ public class Filme {
         elenco.add(ator);
     }
 
+    static void associaAtorDiretor (Ator ator, Diretor diretor, Filme filme) {
+        filme.adicionarAtor(ator);
+        filme.setDiretor(diretor);
+    }
+
+
     @Override
     public String toString() {
         return "Filme{" + "titulo='" + titulo + "'}'";
     }
-    
+
     public String mostrarFilme() {
         String linhas = "";
         linhas += "Filme: " + this.getTitulo() + "\n"
-                + "Ano: " + this.ano +"\n"
-                + "Diretor: " + this.getDiretor().getNome() +"\n"
-                + "Orçamento (MilharesUSD): " + this.orcamento +"\n"
+                + "Ano: " + this.ano +"\n";
+      if (this.diretor != null) {
+            linhas += "Diretor: " + this.getDiretor().getNome() +"\n";
+        }
+        linhas += "Orçamento (MilharesUSD): " + orcamento +"\n"
                 + "Elenco: " +"\n";
                 for (Ator ator : elenco) {
                     linhas += String.format("%8s%-10s%n","", ator.getNome());
