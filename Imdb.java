@@ -9,20 +9,22 @@ public class Imdb {
         ArrayList<Diretor> listagemDiretores = new ArrayList<>();
         ArrayList<Filme> listagemFilmes = new ArrayList<>();
 
-        System.out.println("Bem-vindo a IMDB!");
+        System.out.println();
+        System.out.println("*************** Bem-vindo a IMDB! ***************");
+        System.out.println();
 
         boolean continua = true;
 
         while (continua) {
             String cabecalho = "";
             cabecalho +=
-                    "Escolha uma opção: \n" +
-                    "1) - Cadastrar filmes |  " +
-                    "2) - Cadastrar atores |  " +
-                    "3) - Cadastrar diretores |  " +
-                    "4) - Associar ao filme atores e diretores |  " +
-                    "5) - Pesquisar filme |  " +
-                    "6) - Encerrar aplicação!\n" +
+                    "Escolha uma opção: \n\n" +
+                    "1) Cadastrar filmes |  " +
+                    "2) Cadastrar atores |  " +
+                    "3) Cadastrar diretores |  " +
+                    "4) Associar filme ator diretor |  " +
+                    "5) Pesquisar filme |  " +
+                    "6) Encerrar aplicação!\n\n" +
                     "Escolha >> ";
 
             System.out.print(cabecalho);
@@ -35,7 +37,7 @@ public class Imdb {
 
             switch (opcao) {
                 case 1:
-                    listagemFilmes = cadastrarFilmeViaTeclado(listagemFilmes);
+                    listagemFilmes = Filme.cadastrarFilmeViaTeclado(listagemFilmes);
                     break;
 
                 case 2:
@@ -47,61 +49,12 @@ public class Imdb {
                     break;
 
                 case 4:
-                    System.out.println("Os diretores listados são:");
-                    int i = 0;
-                    for (Diretor dir : listagemDiretores) {
-                        System.out.println("#" + i + ": " + dir.getNome());
-                        i++;
-                    }
-                    System.out.println("Qual o índice do diretor: ");
-                    int indiceDiretor = receberInteiroTeclado();
-
-                    System.out.println(listagemDiretores.get(indiceDiretor).getNome());
-
-                    System.out.println("Atores listados:");
-                    int j = 0;
-                    for (Ator at : listagemAtores) {
-                        System.out.println("#" + j + ": " + at.getNome());
-                        j++;
-                    }
-                    System.out.println("Qual o índice do ator: ");
-                    int indiceAtor = Imdb.receberInteiroTeclado();
-                    System.out.println(listagemAtores.get(indiceAtor).getNome());
-
-                    System.out.println("Filmes listados:");
-                    int k = 0;
-                    for (Filme film : listagemFilmes) {
-                        System.out.println("#" + k + ": " + film.getTitulo());
-                        k++;
-                    }
-                    System.out.println("Qual o índice do filme: ");
-                    int indiceFilme = Imdb.receberInteiroTeclado();
-
-                    Filme.associaAtorDiretor(listagemAtores.get(indiceAtor), listagemDiretores.get(indiceDiretor), listagemFilmes.get(indiceFilme));
-
+                      Filme.associarFilmeAtorDiretor(listagemDiretores, listagemAtores, listagemFilmes);
                     break;
 
                 case 5:
-                    System.out.print("Pesquisa pelo nome - Informe o nome procurado OU * para ver todos >> ");
-                    String nomeProcurado = receberStringTeclado().toUpperCase();
-
-                    if (!nomeProcurado.equals("*")) {
-                        for (int l = 0; l < listagemFilmes.size(); l++) {
-                            if (listagemFilmes.get(l).getTitulo().toUpperCase().contains(nomeProcurado.toUpperCase())) {
-                                boolean encontrado = true;
-                                String texto = listagemFilmes.get(l).mostrarFilme();
-                                System.out.println(texto);
-//                                System.out.println("Match na posição #" + l + " da listagem de filmes >> " + listagemFilmes.get(l).getTitulo());
-                            }
-                        }
-                    } else {
-                        System.out.println("Filmes:");
-                        for (int l = 0; l < listagemFilmes.size(); l++) {
-//                            System.out.println("#" + l + " da listagem de filmes >> " + listagemFilmes.get(l).getTitulo());
-                            String texto = listagemFilmes.get(l).mostrarFilme();
-                            System.out.println(texto);
-                        }
-                    }
+//                    pesquisarFilmePorNome(String trechoNome);
+                    Filme.pesquisarFilmePorNome(listagemFilmes);
                     break;
 
                 case 6:
@@ -141,19 +94,5 @@ public class Imdb {
         }
     }
 
-    public static ArrayList<Filme> cadastrarFilmeViaTeclado(ArrayList<Filme> listagemFilmes) {
-        System.out.println("Informe os dados do filme:");
-        System.out.print("Título: ");
-        String titulo = Imdb.receberStringTeclado();
-        System.out.print("Ano: ");
-        String ano = Imdb.receberStringTeclado();
-        System.out.print("Orçamento: ");
-        double orcamento = Imdb.receberDoubleTeclado();
-        System.out.print("Descricão: ");
-        String descricao = Imdb.receberStringTeclado();
 
-        Filme filme = new Filme(titulo, ano, orcamento, descricao);
-        listagemFilmes.add(filme);
-        return listagemFilmes;
-    }
 }
