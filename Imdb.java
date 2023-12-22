@@ -79,7 +79,7 @@ public class Imdb {
 
     public static String receberStringTeclado() {
         Scanner sc = new Scanner(System.in);
-        String informacao = sc.next();
+        String informacao = sc.nextLine();
         return informacao;
     }
 
